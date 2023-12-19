@@ -5,12 +5,16 @@ import { UseCountState } from '../StateManagement/Context'
 
 const ProductDetails = () => {
     const [products, setProducts] = useState([])
+    const {cartItems, setCartItems} = UseCountState()
     const {cartCount, setCartCount}=UseCountState()
     useEffect(() => {
         axios.get('Products.json')
         .then(res => setProducts(res.data))
         .catch(err => console.log(err))
     }, [])
+    const handleAddToCart=(id)=>{
+      cartItems.push(products.filter((ele)=>ele?.id==id))
+    }
   return (
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
   {products &&
@@ -23,7 +27,7 @@ const ProductDetails = () => {
         />
         <h4 className="text-lg font-semibold mb-2">{product?.title}</h4>
         <div className="grid grid-cols-2 items-center gap-4">
-          <button onClick={()=>setCartCount(cartCount+1)}className="bg-red-500 text-white px-4 py-2 rounded-md">
+          <button onClick={()=>{setCartCount(cartCount+1);handleAddToCart(product?.id)}}className="bg-red-500 text-white px-4 py-2 rounded-md">
             ADD to cart
           </button>
           <h4 className="text-gray-800">&#8377; {product?.price}</h4>

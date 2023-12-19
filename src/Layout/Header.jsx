@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import { UseCountState } from '../StateManagement/Context';
 
 const Header = () => {
-  const {cartCount}=UseCountState()
-
+  const {cartItems} = UseCountState()
   return (
     <header className="bg-red-500 text-white py-4">
       <div className="container mx-auto flex justify-between items-center">
@@ -17,7 +16,7 @@ const Header = () => {
             🛒
           </span>
             <span className="bg-white text-red-500 rounded-full px-2 mr-1">
-              { cartCount > 0 ? cartCount : 0}
+              { cartItems.length > 0 ? cartItems.length : 0}
             </span>
           </Link>
         </div>
